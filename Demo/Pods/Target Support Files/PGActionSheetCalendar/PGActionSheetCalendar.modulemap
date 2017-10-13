@@ -1,0 +1,6 @@
+framework module PGActionSheetCalendar {
+  umbrella header "PGActionSheetCalendar-umbrella.h"
+
+  export *
+  module * { export * }
+}
