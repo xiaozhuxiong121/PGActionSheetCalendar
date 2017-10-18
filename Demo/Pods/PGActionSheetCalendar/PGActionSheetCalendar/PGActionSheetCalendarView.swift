@@ -61,15 +61,26 @@ class PGActionSheetCalendarView: UIView {
         calendar?.appearance.weekdayTextColor = UIColor.blue.withAlphaComponent(0.5)
         calendar?.appearance.headerTitleColor = UIColor.blue.withAlphaComponent(0.5)
         calendar?.delegate = self
+        calendar?.dataSource = self
         self.addSubview(calendar!)
         self.didSelectDate = calendar?.today
+    }
+}
+
+extension PGActionSheetCalendarView: FSCalendarDataSource {
+    func calendar(_ calendar: FSCalendar, titleFor date: Date) -> String? {
+        let currentCalendar = Calendar.current
+        if currentCalendar.isDateInToday(date) {
+            return "今"
+        }
+        return nil
     }
 }
 
 extension PGActionSheetCalendarView: FSCalendarDelegate {
     public func calendar(_ calendar: FSCalendar, didSelect date: Date) {
         calendar.appearance.todayColor = UIColor.clear
-        calendar.appearance.titleTodayColor = UIColor.black
+        calendar.appearance.titleTodayColor = UIColor.blue.withAlphaComponent(0.5)
         self.didSelectDate = date
     }
 }

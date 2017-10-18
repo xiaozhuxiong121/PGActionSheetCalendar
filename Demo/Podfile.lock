@@ -1,6 +1,6 @@
 PODS:
   - FSCalendar (2.7.9)
-  - PGActionSheetCalendar (1.0):
+  - PGActionSheetCalendar (1.0.1):
     - FSCalendar
 
 DEPENDENCIES:
@@ -8,7 +8,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   FSCalendar: a04b09f16f811bc92e82f3cf852a15225233b9d5
-  PGActionSheetCalendar: 11ee7b583d77da7f0d505de20a352f3defcb6473
+  PGActionSheetCalendar: 61830547b6e4daa1741a8f8e2c121d0dda495836
 
 PODFILE CHECKSUM: 594666a7667363d3b16c0f5388b9fd297f4e276e
 
