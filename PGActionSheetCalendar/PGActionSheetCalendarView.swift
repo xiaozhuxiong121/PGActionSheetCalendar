@@ -50,6 +50,7 @@ class PGActionSheetCalendarView: UIView {
         
         var calendarFrame = self.bounds
         calendarFrame.origin.y = headerView.frame.maxY
+        calendarFrame.size.height = self.bounds.size.height - headerView.frame.size.height
         calendar = FSCalendar(frame: calendarFrame)
         calendar?.backgroundColor = UIColor.white
         calendar?.appearance.headerDateFormat = "yyyy年MM月"
