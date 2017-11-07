@@ -29,11 +29,21 @@ class PGActionSheetCalendarView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if calendar?.selectedDate != nil {
+            self.didSelectDate = calendar?.selectedDate
+            calendar?.appearance.todayColor = UIColor.clear
+            calendar?.appearance.titleTodayColor = UIColor.blue.withAlphaComponent(0.5)
+        }
+    }
+    
     private func setup() {
         var frame = self.bounds
         frame.size.height = headerHeight
         headerView = PGActionSheetCalendarHeader(frame: frame)
         self.addSubview(headerView)
+        
         headerView.backgroundColor = UIColor(red: 236 / 255.0, green: 231 / 255.0, blue: 242 / 255.0, alpha: 1.0)
         headerView.sureButtonHandler = {[unowned self] _ in
             if self.sureButtonHandler != nil {
