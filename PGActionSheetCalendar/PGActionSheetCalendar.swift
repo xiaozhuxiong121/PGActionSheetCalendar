@@ -35,6 +35,7 @@ public class PGActionSheetCalendar: UIViewController {
     fileprivate var calendarView: PGActionSheetCalendarView!
     fileprivate let calendarHeight: CGFloat = 300
     fileprivate var overlayView: UIView?
+    fileprivate var contentView: UIView!
     
     //MARK: - system cycle
     public convenience init() {
@@ -48,9 +49,13 @@ public class PGActionSheetCalendar: UIViewController {
         let tap = UITapGestureRecognizer(target: self, action: #selector(overlayViewTapHandler))
         overlayView?.addGestureRecognizer(tap)
         
+        
         let frame = CGRect(x: 0, y:  ScreenSize.height, width: ScreenSize.width, height: calendarHeight)
+        contentView = UIView(frame: frame)
+        contentView.backgroundColor = UIColor.white
+        self.view.addSubview(contentView)
         calendarView = PGActionSheetCalendarView(frame: frame)
-        self.view.addSubview(calendarView)
+        contentView.addSubview(calendarView)
         calendarView.cancelButtonHandler = {[unowned self] _ in
             self.overlayViewTapHandler()
         }
@@ -73,20 +78,36 @@ public class PGActionSheetCalendar: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        let frame = CGRect(x: 0, y:  ScreenSize.height - calendarHeight, width: ScreenSize.width, height: calendarHeight)
+    public override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        var bottom: CGFloat = 0
+        if #available(iOS 11.0, *) {
+            bottom = self.view.safeAreaInsets.bottom
+        }
+        let frame = CGRect(x: 0,
+                           y: 0,
+                           width: ScreenSize.width,
+                           height: calendarHeight)
+        self.calendarView.frame = frame
+        let contentViewFrame = CGRect(x: 0,
+                           y: ScreenSize.height - calendarHeight - bottom,
+                           width: ScreenSize.width,
+                           height: calendarHeight + bottom)
         UIView.animate(withDuration: 0.3, animations: {
-            self.calendarView.frame = frame
+            self.contentView.frame = contentViewFrame
             self.overlayView?.alpha = 1.0
         })
     }
     
     // private method
     @objc func overlayViewTapHandler() {
-        let frame = CGRect(x: 0, y:  ScreenSize.height, width: ScreenSize.width, height: calendarHeight)
+        var bottom: CGFloat = 0
+        if #available(iOS 11.0, *) {
+            bottom = self.view.safeAreaInsets.bottom
+        }
+        let frame = CGRect(x: 0, y:  ScreenSize.height, width: ScreenSize.width, height: calendarHeight + bottom)
         UIView.animate(withDuration: 0.3, animations: {
-            self.calendarView.frame = frame
+            self.contentView.frame = frame
             self.overlayView?.alpha = 0
         }) { _ in
             self.dismiss(animated: false, completion: nil)
