@@ -28,7 +28,7 @@ public class PGActionSheetCalendar: UIViewController {
     public var titleLabel: UILabel {
         return self.calendarView.headerView.titleLabel
     }
-    public var delegate: PGActionSheetCalendarDelegate?
+    public weak var delegate: PGActionSheetCalendarDelegate?
     public var didSelectDateComponents: ((_ components: DateComponents)->())?
     
     //MARK: - private property
