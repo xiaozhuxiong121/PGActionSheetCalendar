@@ -8,6 +8,6 @@
 
 import Foundation
 
-@objc public protocol PGActionSheetCalendarDelegate {
+@objc public protocol PGActionSheetCalendarDelegate: NSObjectProtocol {
     @objc optional func calendar(_ calendar: PGActionSheetCalendar, didSelectDate components: DateComponents)
 }
